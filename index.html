@@ -12,23 +12,40 @@
   <button onclick="clearInterval(timerInterval)">Stop</button>
 
   <script>
+    const timings = [];
     let presses = 0;
     let timerInterval;
+    let totalms;
+    let milliseconds;
+    let seconds;
     function timer() {
       presses++;
       if(presses == 1) {
-        let milliseconds = 0;
-        let seconds = 0;
+        totalms = 0;
+        milliseconds = 0;
+        seconds = 0;
           function update() {
-            milliseconds+=10;
-            if(milliseconds >= 1000) {
-              seconds++;
-              milliseconds = 0;
-            }
+            totalms+=1;
+            seconds=Math.floor(totalms/100);
+            milliseconds=totalms%100;
+          /*if(milliseconds >= 1000) {
+            seconds++;
+            milliseconds = 0;
+          }*/
         document.getElementById("info").innerHTML = seconds + "." + milliseconds;
         }
-      timerInterval = setInterval(update, 10);
+        timerInterval = setInterval(update, 10);
+      }
+      if(presses > 1) {
+        timings.push(totalms);
+        console.log(totalms);
+        totalms=0;
+        document.getElementById("history").innerHTML = timings;
       }
     }
-</script>
+
+    function result() {
+    
+    }
+  </script>
 </body>
