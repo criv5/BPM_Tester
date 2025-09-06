@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BPM_Tester</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <button onclick="timer()">BPM</button>
+  <p id="info"></p>
+  <p id="history"></p>
+  <button onclick="clearInterval(timerInterval)">Stop</button>
+
+  <script>
+    let presses = 0;
+    let timerInterval;
+    function timer() {
+      presses++;
+      if(presses == 1) {
+        let milliseconds = 0;
+        let seconds = 0;
+          function update() {
+            milliseconds+=10;
+            if(milliseconds >= 1000) {
+              seconds++;
+              milliseconds = 0;
+            }
+        document.getElementById("info").innerHTML = seconds + "." + milliseconds;
+        }
+      timerInterval = setInterval(update, 10);
+      }
+    }
+</script>
+</body>
