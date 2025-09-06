@@ -1,51 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>BPM_Tester</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <button onclick="timer()">BPM</button>
-  <p id="info"></p>
-  <p id="history"></p>
-  <button onclick="clearInterval(timerInterval)">Stop</button>
+<button onclick="timer()">BPM</button>
+<p id="info"></p>
+<p id="history"></p>
+<button onclick="result()">Stop</button>
+<p id="result"></p>
 
-  <script>
-    const timings = [];
-    let presses = 0;
-    let timerInterval;
-    let totalms;
-    let milliseconds;
-    let seconds;
-    function timer() {
-      presses++;
-      if(presses == 1) {
-        totalms = 0;
-        milliseconds = 0;
-        seconds = 0;
-          function update() {
-            totalms+=1;
-            seconds=Math.floor(totalms/100);
-            milliseconds=totalms%100;
+<script>
+  const timings = [];
+  let presses = 0;
+  let timerInterval;
+  let totalms;
+  let milliseconds;
+  let seconds;
+  function timer() {
+    presses++;
+    if(presses == 1) {
+      totalms = 0;
+      milliseconds = 0;
+      seconds = 0;
+        function update() {
+          totalms+=10;
+          seconds=Math.floor(totalms/1000);
+          milliseconds=totalms%1000;
           /*if(milliseconds >= 1000) {
             seconds++;
             milliseconds = 0;
           }*/
-        document.getElementById("info").innerHTML = seconds + "." + milliseconds;
-        }
-        timerInterval = setInterval(update, 10);
+      document.getElementById("info").innerHTML = seconds + "." + milliseconds;
       }
-      if(presses > 1) {
-        timings.push(totalms);
-        console.log(totalms);
-        totalms=0;
-        document.getElementById("history").innerHTML = timings;
-      }
+      timerInterval = setInterval(update, 10);
     }
+    if(presses > 1) {
+      timings.push(totalms);
+      console.log(totalms);
+      totalms=0;
+      document.getElementById("history").innerHTML = timings;
+    }
+  }
 
-    function result() {
-    
+  function result() {
+    clearInterval(timerInterval);
+    let total = 0;
+    for(let i = 0; i < timings.length; i++) {
+      total += timings[i];
+      console.log(total);
     }
-  </script>
-</body>
+    let average = total/timings.length;
+    let bpm = 60000/average;
+    document.getElementById("result").innerHTML = "Average beat spacing: " + average + "ms\nBPM: " + bpm;
+  }
+</script>
