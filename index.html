@@ -1,4 +1,5 @@
-<button onclick="timer()">BPM</button>
+<h>Press the button to begin and tap for every beat. Press stop when done</h>
+<button id="button" onclick="timer()">Press to begin</button>
 <p id="info"></p>
 <p id="history"></p>
 <button onclick="result()">Stop</button>
@@ -14,6 +15,7 @@
   function timer() {
     presses++;
     if(presses == 1) {
+      document.getElementById("button").innerHTML = "Tap each beat";
       totalms = 0;
       milliseconds = 0;
       seconds = 0;
@@ -33,7 +35,7 @@
       timings.push(totalms);
       console.log(totalms);
       totalms=0;
-      document.getElementById("history").innerHTML = timings;
+      document.getElementById("history").innerHTML = "Beat spacing (ms): " + timings;
     }
   }
 
@@ -46,6 +48,6 @@
     }
     let average = total/timings.length;
     let bpm = 60000/average;
-    document.getElementById("result").innerHTML = "Average beat spacing: " + average + "ms\nBPM: " + bpm;
+    document.getElementById("result").innerHTML = "Average beat spacing (ms): " + average + "ms\nBPM: " + bpm;
   }
 </script>
